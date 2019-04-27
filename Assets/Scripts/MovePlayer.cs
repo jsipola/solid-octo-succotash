@@ -9,10 +9,11 @@ public class MovePlayer : MonoBehaviour
 	private BoxCollider2D playerCollider;
 	private float input;
 	private int facing = 1;
-	private bool IsRecording = false;
-	private bool IsPlaying = false;
-	private bool IsActive = false;
-	private int FrameCount = 0;
+	public bool IsRecording = false;
+	public bool IsPlaying = false;
+	public bool IsActive = false;
+	public bool isCurrentActivePlayer = true;
+	public int FrameCount = 0;
 	public Vector2 OriginalPos;
 	
 	private List<bool[]> recording = new List<bool[]>();
@@ -32,18 +33,20 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		if (IsRecording) {
-			RecordActions();
-			if (recording.Count > 0) {
-				PlayActions(recording.Count - 1);
+		if (isCurrentActivePlayer) {
+			if (IsRecording) {
+				RecordActions();
+				if (recording.Count > 0) {
+					PlayActions(recording.Count - 1);
+				}
 			}
-		}
-		if (IsPlaying) {
-			if (FrameCount < recording.Count) {
-				PlayActions(FrameCount);
-				FrameCount++;
-			} else {
-				IsPlaying = false;
+			if (IsPlaying) {
+				if (FrameCount < recording.Count) {
+					PlayActions(FrameCount);
+					FrameCount++;
+				} else {
+					IsPlaying = false;
+				}
 			}
 		}
 //		if (Input.GetButton("Fire1")) {
@@ -167,6 +170,10 @@ public class MovePlayer : MonoBehaviour
 		IsRecording = false;
 		IsActive = false;
 		IsPlaying = false;
+		recording.Clear();
+	}
+	
+	public void ClearRecording(){
 		recording.Clear();
 	}
 	
