@@ -64,8 +64,8 @@ public class ControlHandler : MonoBehaviour
 	
 	public void ResetAll(){
 		MovePlayer player = (MovePlayer)FindCurrentPlayer();
-		Rigidbody2D asd = player.GetComponent<Rigidbody2D>();
-		asd.velocity = Vector2.zero;
+		Rigidbody2D playerRigid = player.GetComponent<Rigidbody2D>();
+		playerRigid.velocity = Vector2.zero;
 		player.transform.position = player.OriginalPos;
 		//player.rigidbody2D.velocity = Vector2.zero;
 		//player.transform.position = OriginalPos;
