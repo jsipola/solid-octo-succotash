@@ -1,0 +1,4 @@
+1.
+	- Make copies of buttons when spawning new helpers
+	- Make delete func
+	- 

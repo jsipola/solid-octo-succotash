@@ -27,6 +27,7 @@ public class HelperSpawnerScript : MonoBehaviour
 		MovePlayer newHelper = (MovePlayer)Instantiate(helper, helper.OriginalPos, Quaternion.identity);
 		newHelper.isCurrentActivePlayer = true;
 		helper = newHelper; // replace old character with the newly created one
+		listOfPlayers.Add(helper);
 
 		//GameObject newButton = buttonObjectPool.GetObject();
 		//ActionButton sampleButton = newButton.GetComponent<ActionButton>();
@@ -36,5 +37,15 @@ public class HelperSpawnerScript : MonoBehaviour
 
 	}
 	
+	public void RemoveHelper(){
+		// remove current player
+		//
+		listOfPlayers.RemoveAt(listOfPlayers.Count);
+		// select the new player
+		//
+		helper = listOfPlayers[listOfPlayers.Count];
+		helper.isCurrentActivePlayer = true;
+		//helper.IsCurrentActivePlayer = true;
+	}
 
 }
