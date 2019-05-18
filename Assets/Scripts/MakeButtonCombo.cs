@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MakeButtonCombo : MonoBehaviour
 {
     //Make sure to attach these Buttons in the Inspector
-    public Button m_RecordButton, m_StopRecButton, m_PlayButton, m_SpawnButton, m_ResetButton;
+    public Button m_RecordButton, m_StopRecButton, m_PlayButton, m_SpawnButton, m_ResetButton, m_DeleteButton;
 	public Vector3 originPos = new Vector3(0,0,0);
 
     void Start()
