@@ -40,10 +40,15 @@ public class HelperSpawnerScript : MonoBehaviour
 	public void RemoveHelper(){
 		// remove current player
 		//
-		listOfPlayers.RemoveAt(listOfPlayers.Count);
+		
+		if (listOfPlayers.Count == 1) {
+			return;
+		}
+		Destroy(listOfPlayers[listOfPlayers.Count - 1].gameObject);
+		listOfPlayers.RemoveAt(listOfPlayers.Count - 1);
 		// select the new player
 		//
-		helper = listOfPlayers[listOfPlayers.Count];
+		helper = listOfPlayers[listOfPlayers.Count - 1];
 		helper.isCurrentActivePlayer = true;
 		//helper.IsCurrentActivePlayer = true;
 	}

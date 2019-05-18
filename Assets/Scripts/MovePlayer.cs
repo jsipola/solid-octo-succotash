@@ -142,6 +142,7 @@ public class MovePlayer : MonoBehaviour
 	
 	public void StartRecord(){
 		ResetAll();
+		Debug.Log("asdas");
 		IsRecording = true;
 	}
 	

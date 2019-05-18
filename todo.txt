@@ -1,4 +1,5 @@
 1.
 	- Make copies of buttons when spawning new helpers
-	- Make delete func
-	- 
+	- Make button switch logic
+	- make functions for creating new player masters
+

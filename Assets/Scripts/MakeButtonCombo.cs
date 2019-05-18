@@ -34,6 +34,8 @@ public class MakeButtonCombo : MonoBehaviour
 		
 		m_SpawnButton.onClick.AddListener(() => HideButton(4));
 		
+		m_DeleteButton.onClick.AddListener(() => HideButton(5));
+		
     }
 
     void TaskOnClick()
@@ -80,7 +82,18 @@ public class MakeButtonCombo : MonoBehaviour
 				originPos += new Vector3(150,0,0);
 				m_RecordButton.transform.position = originPos;
 				m_SpawnButton.transform.position += new Vector3(150,0,0);
+				m_DeleteButton.transform.position += new Vector3(150,0,0);
 				break;
+			case 5:
+				if (originPos.x < 160) { ///fix later
+					break;
+				}
+				originPos -= new Vector3(150,0,0);
+				m_RecordButton.transform.position = originPos;
+				m_SpawnButton.transform.position -= new Vector3(150,0,0);
+				m_DeleteButton.transform.position -= new Vector3(150,0,0);
+				break;
+				
 		}
 	}
 	
