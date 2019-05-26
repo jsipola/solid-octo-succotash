@@ -9,6 +9,10 @@ public class RecordScript : MonoBehaviour
 	public GameObject button;
 	public UnityEvent OnClick = new UnityEvent();
 
+	public enum Action {Record, StopRecord, Play, Reset};
+
+	public Action Current_Action;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +31,50 @@ public class RecordScript : MonoBehaviour
              {
                  Debug.Log("Button Clicked");
                  OnClick.Invoke();
-				 StartRecordChild();
+				 switch (Current_Action)
+				 {
+					case Action.Record:
+						StartRecordChild();
+						break;
+					case Action.StopRecord:
+						StopRecordChild();
+						break;
+					case Action.Play:
+						PlayActionChild();
+						break;
+					case Action.Reset:
+						StopActionChild();
+						break;
+				 }
              }
          }
     }
 	
 	void StartRecordChild(){
 		GameObject gamePlayer = button.transform.parent.gameObject;
-		
 		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
 		
 		player.StartRecord();
+	}
+	
+	void StopRecordChild(){
+		GameObject gamePlayer = button.transform.parent.gameObject;
+		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
+
+		player.StopRecord();
+	}
+	
+	void PlayActionChild(){
+		GameObject gamePlayer = button.transform.parent.gameObject;
+		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
 		
+		player.PlayRecord();
+	}
+	
+	void StopActionChild(){
+		GameObject gamePlayer = button.transform.parent.gameObject;
+		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
+		
+		player.ResetRecord();
 	}
 }

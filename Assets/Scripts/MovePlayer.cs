@@ -142,15 +142,17 @@ public class MovePlayer : MonoBehaviour
 	
 	public void StartRecord(){
 		ResetAll();
-		Debug.Log("asdas");
+		Debug.Log("Start Record");
 		IsRecording = true;
 	}
 	
 	public void StopRecord(){
+		Debug.Log("Stop Record");
 		IsRecording = false;
 	}
 	
 	public void PlayRecord(){
+		Debug.Log("Play Record");
 		IsPlaying = true;
 		rigidbody2D.velocity = Vector2.zero;
 		gameObject.transform.position = OriginalPos;
@@ -158,6 +160,7 @@ public class MovePlayer : MonoBehaviour
 	}
 	
 	public void ResetRecord(){
+		Debug.Log("Reset Record");
 		IsPlaying = false;
 		rigidbody2D.velocity = Vector2.zero;
 		gameObject.transform.position = OriginalPos;
