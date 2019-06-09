@@ -6,14 +6,18 @@ public class HelperSpawnerScript : MonoBehaviour
 {
 		
 	public MovePlayer helper;
+	public GameObject master;
 	public MakeButtonCombo buttons;
 	public ActionButton button;
 	public SimpleObjectPool buttonObjectPool;
 	private List<MovePlayer> listOfPlayers = new List<MovePlayer>();
+	private List<GameObject> listOfCubes = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
-		listOfPlayers.Add(helper);
+			listOfPlayers.Add(helper);
+			listOfCubes.Add(master);
     }
 
     // Update is called once per frame
@@ -51,6 +55,25 @@ public class HelperSpawnerScript : MonoBehaviour
 		helper = listOfPlayers[listOfPlayers.Count - 1];
 		helper.isCurrentActivePlayer = true;
 		//helper.IsCurrentActivePlayer = true;
+	}
+
+	public void CreateNewPlayerMaster(){
+		// Create new Player & buttons
+		//
+		GameObject newMaster = (GameObject)Instantiate(master,master.transform.position + new Vector3(2,0,0), Quaternion.identity);
+		listOfCubes.Add(newMaster);
+		master = newMaster;
+	}
+
+	public void DeletePlayers(){
+		// Delete Last created Player Assets
+		//
+		if (listOfCubes.Count == 1) {
+			return;
+		}
+		Destroy(listOfCubes[listOfCubes.Count - 1]);
+		listOfCubes.RemoveAt(listOfCubes.Count - 1);
+		master = listOfCubes[listOfCubes.Count - 1];
 	}
 
 }

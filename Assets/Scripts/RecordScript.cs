@@ -77,4 +77,9 @@ public class RecordScript : MonoBehaviour
 		
 		player.ResetRecord();
 	}
+
+	void MoveButton(){
+		this.transform.position = new Vector3(0,0,0);
+		
+	}
 }
