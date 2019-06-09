@@ -8,16 +8,15 @@ public class MovePlayer : MonoBehaviour
 	private Rigidbody2D rigidbody2D;
 	private BoxCollider2D playerCollider;
 	private float input;
-	private int facing = 1;
-	public bool IsRecording = false;
-	public bool IsPlaying = false;
 	public bool IsActive = false;
 	public bool isCurrentActivePlayer = true;
 	public int FrameCount = 0;
 	public Vector2 OriginalPos;
-	
+	//public enum State {Sleep, Record, Play, Wait};
 	private List<bool[]> recording = new List<bool[]>();
-	private bool[] BoolArr; // ORDER: RIGHT LEFT JUMP 
+	private bool[] BoolArr; // ORDER: RIGHT LEFT JUMP
+
+	private PlayerStateManager stateManager;
 	
     // Start is called before the first frame update
     void Start()
@@ -27,31 +26,26 @@ public class MovePlayer : MonoBehaviour
 		gameObject.tag = "Player";
 		OriginalPos = gameObject.transform.position;
 
+		stateManager = GetComponentInParent<PlayerStateManager>();
+		
 		Debug.Log(recording.Count);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-		if (isCurrentActivePlayer) {
-			if (IsRecording) {
-				RecordActions();
-				if (recording.Count > 0) {
-					PlayActions(recording.Count - 1);
-				}
-			}
-			if (IsPlaying) {
-				if (FrameCount < recording.Count) {
-					PlayActions(FrameCount);
-					FrameCount++;
-				} else {
-					IsPlaying = false;
-				}
+		if (stateManager.currentState == PlayerStateManager.State.Record) {
+			RecordActions();
+			if (recording.Count > 0) {
+				PlayActions(recording.Count - 1);
 			}
 		}
-//		if (Input.GetButton("Fire1")) {
-//			ReplayActions();
-//		}
+		if (stateManager.currentState == PlayerStateManager.State.Play) {
+			if (FrameCount < recording.Count) {
+				PlayActions(FrameCount);
+				FrameCount++;
+			}
+		}
     }
 	
 	bool CastRayDown(){
@@ -131,50 +125,10 @@ public class MovePlayer : MonoBehaviour
 		}
 	}
 	
-	void ReplayActions(){
-		Debug.Log("Replay");
-		rigidbody2D.velocity = Vector2.zero;
-		gameObject.transform.position = OriginalPos;
-		FrameCount = 0;
-		IsRecording = false;
-		IsPlaying = true;
-	}
-	
-	public void StartRecord(){
-		ResetAll();
-		Debug.Log("Start Record");
-		IsRecording = true;
-	}
-	
-	public void StopRecord(){
-		Debug.Log("Stop Record");
-		IsRecording = false;
-	}
-	
-	public void PlayRecord(){
-		Debug.Log("Play Record");
-		IsPlaying = true;
-		rigidbody2D.velocity = Vector2.zero;
-		gameObject.transform.position = OriginalPos;
-		FrameCount = 0;
-	}
-	
-	public void ResetRecord(){
-		Debug.Log("Reset Record");
-		IsPlaying = false;
-		rigidbody2D.velocity = Vector2.zero;
-		gameObject.transform.position = OriginalPos;
-		FrameCount = 0;
-	}
-	
 	public void ResetAll(){
 		rigidbody2D.velocity = Vector2.zero;
 		gameObject.transform.position = OriginalPos;
 		FrameCount = 0;
-		IsRecording = false;
-		IsActive = false;
-		IsPlaying = false;
-		recording.Clear();
 	}
 	
 	public void ClearRecording(){

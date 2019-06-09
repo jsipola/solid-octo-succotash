@@ -43,39 +43,28 @@ public class RecordScript : MonoBehaviour
 						PlayActionChild();
 						break;
 					case Action.Reset:
-						StopActionChild();
+						RewindActionChild();
 						break;
 				 }
              }
          }
     }
 	
-	void StartRecordChild(){
-		GameObject gamePlayer = button.transform.parent.gameObject;
-		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
-		
-		player.StartRecord();
+	void StartRecordChild(){	
+		GetComponentInParent<PlayerStateManager>().ChangeState("record");
+		this.transform.position = new Vector3(0,0,0);
 	}
 	
 	void StopRecordChild(){
-		GameObject gamePlayer = button.transform.parent.gameObject;
-		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
-
-		player.StopRecord();
+		GetComponentInParent<PlayerStateManager>().ChangeState("stop");
 	}
 	
 	void PlayActionChild(){
-		GameObject gamePlayer = button.transform.parent.gameObject;
-		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
-		
-		player.PlayRecord();
+		GetComponentInParent<PlayerStateManager>().ChangeState("play");		
 	}
 	
-	void StopActionChild(){
-		GameObject gamePlayer = button.transform.parent.gameObject;
-		MovePlayer player = gamePlayer.GetComponentInChildren<MovePlayer>();
-		
-		player.ResetRecord();
+	void RewindActionChild(){
+		GetComponentInParent<PlayerStateManager>().ChangeState("rewind");
 	}
 
 	void MoveButton(){
