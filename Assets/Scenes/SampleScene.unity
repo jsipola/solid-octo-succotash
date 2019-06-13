@@ -1411,8 +1411,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  IsRecording: 0
-  IsPlaying: 0
   IsActive: 0
   isCurrentActivePlayer: 1
   FrameCount: 0
